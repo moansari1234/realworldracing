@@ -7,7 +7,7 @@ const FIELDS = {
 };
 const MAX_LIMIT = { map_features: 2000, images: 100 };
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   const send = (code, obj, cache = 'no-store') => { res.statusCode = code; res.setHeader('Cache-Control', cache); res.end(typeof obj === 'string' ? obj : JSON.stringify(obj)); };
   try {
