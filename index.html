@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+<meta name="theme-color" content="#16130f" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="description" content="Race real streets anywhere in the world. Drop two pins and the game builds a low-poly city from OpenStreetMap." />
+<title>Real World Racing</title>
+<link rel="icon" href="data:," />
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<div id="menu">
+  <header>
+    <div class="brand"><span class="dot"></span>REAL WORLD RACING</div>
+    <h1>Race any street<br/>on Earth</h1>
+    <p class="lede">Drop two pins anywhere. The engine pulls the real roads, buildings, lakes and landmarks from OpenStreetMap and builds a low-poly city around your route. Or start with three hand-tuned races through Hyderabad.</p>
+  </header>
+  <section><h2>Route</h2><div id="tracks"></div></section>
+  <section class="row">
+    <div><h2>Car</h2><div id="cars"></div></div>
+    <div><h2>Paint</h2><div id="paints"></div>
+      <label class="night"><input type="checkbox" id="night" /> Race at night <small class="kb">(or press N)</small></label>
+      <label class="night tiltopt"><input type="checkbox" id="tilt" /> Tilt phone to steer</label>
+      <button id="go">Start race</button>
+    </div>
+  </section>
+  <footer><span class="kb">Arrows / WASD drive · Space handbrake drift · Shift nitro · C camera · N day/night · Esc menu<br/></span><span class="touchonly">Turn your phone sideways for the best view. Left thumb steers, right thumb drives.<br/></span>Map data © OpenStreetMap contributors (ODbL). Search by Nominatim. Street detail © <a href="https://www.mapillary.com" target="_blank" rel="noopener">Mapillary</a> contributors (CC BY-SA).</footer>
+</div>
+
+<div id="builder" class="hide" data-stage="pick">
+  <div id="bk-map"></div>
+  <div class="bk-top">
+    <button id="bk-back" aria-label="Back">←</button>
+    <div class="bk-search"><input id="bk-q" type="search" placeholder="Search any city, street or landmark" autocomplete="off" enterkeyhint="search" /><div id="bk-res"></div></div>
+  </div>
+  <div class="bk-sheet">
+    <div class="pick-only">
+      <p id="bk-hint"></p>
+      <div class="bk-btns">
+        <button id="bk-loc" class="ghost" aria-label="Use my location">◎ Near me</button>
+        <button id="bk-undo" class="ghost">Undo</button>
+        <button id="bk-clear" class="ghost">Clear</button>
+        <button id="bk-build" class="primary">Build race</button>
+      </div>
+    </div>
+    <div class="busy-only"><div class="spin"></div><p id="bk-status">Starting…</p></div>
+    <div class="done-only">
+      <div class="tz">Generated from live map data</div>
+      <h3 id="bk-title"></h3>
+      <div id="bk-meta" class="chips"></div>
+      <p id="bk-lms"></p>
+      <div class="bk-btns"><button id="bk-again" class="ghost">New route</button><button id="bk-share" class="ghost">Share</button><button id="bk-race" class="primary">Race now</button></div>
+    </div>
+  </div>
+</div>
+
+<div id="loading" class="hide"><div>Generating city from map data…</div></div>
+<div id="hud" class="hide">
+  <div id="topl"><div id="pos">1</div><div id="time">0:00.00</div><div id="street"></div><div id="mlycredit" class="hide">Street detail: Mapillary · CC BY-SA</div></div>
+  <div id="lm" class="hide"></div>
+  <div id="count" class="hide">3</div>
+  <canvas id="minimap" width="220" height="220"></canvas>
+  <div id="hudbtns"><button id="hb-cam" aria-label="Camera">◉</button><button id="hb-night" aria-label="Day or night">☾</button><button id="hb-menu" aria-label="Pause">❚❚</button></div>
+  <div id="speedo"><div id="spd">0</div><small>km/h</small><div id="nitro"><i></i></div></div>
+  <div id="prog"><i></i></div>
+  <div id="gen"></div>
+  <div id="touch">
+    <div class="tleft"><button id="tl" aria-label="Steer left">◀</button><button id="tr" aria-label="Steer right">▶</button></div>
+    <div class="tright"><button id="tn" aria-label="Nitro">N₂O</button><button id="td" aria-label="Drift">DRIFT</button><button id="tb" aria-label="Brake">BRAKE</button><button id="tg" aria-label="Accelerate">GAS</button></div>
+  </div>
+</div>
+<div id="pause" class="hide"><div class="card"><h2>Paused</h2><div class="btns col"><button id="p-resume">Resume</button><button id="p-restart">Restart</button><button id="p-quit">Quit to menu</button></div></div></div>
+<div id="results" class="hide"><div class="card"><h2>Results</h2><table id="res"></table><div class="btns"><button id="again">Race again</button><button id="back">Change route</button></div></div></div>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
